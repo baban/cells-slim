@@ -15,11 +15,9 @@ module Cell
       end
 
       def capture(*args)
-        value = nil
+        value = nil # `value` applies for "Beachparty" string-only statements.
         buffer = with_output_buffer { value = yield(*args) }
-
-        return buffer.to_s if buffer.size > 0
-        value # this applies for "Beachparty" string-only statements.
+        (buffer.size > 0 ? buffer.to_s : value).html_safe
       end
 
       # From FormTagHelper. why do they escape every possible string? why?
